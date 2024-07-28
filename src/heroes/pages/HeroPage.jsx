@@ -15,6 +15,24 @@ export const HeroPage = () => {
     }
   };
 
+  const handleAlert = () => {
+    Swal.fire({
+      title: "Héroe no encontrado",
+      text: `El héroe con el ID: ${id} no existe`,
+      icon: "error",
+      confirmButtonText: "Ir a Comics",
+      cancelButtonText: "Ir a Anime",
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/comics');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        navigate('/animes');
+      }
+    });
+  };
+
   return (
     <>
       {hero ? (
@@ -36,7 +54,7 @@ export const HeroPage = () => {
           </div>
         </div>
       ) : (
-        <h1>¡El héroe no existe!</h1>
+        handleAlert()
       )}
     </>
   );
